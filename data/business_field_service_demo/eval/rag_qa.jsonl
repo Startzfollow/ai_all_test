@@ -1,0 +1,3 @@
+{"question": "红色告警灯亮起时现场工程师应该检查什么？", "expected_keywords": ["pressure", "cooling airflow", "error log"], "source_hint": "after_sales_troubleshooting_faq.md"}
+{"question": "发现设备下方有腐蚀痕迹时应该如何处理？", "expected_keywords": ["corrosion", "preventive maintenance", "record"], "source_hint": "field_unit_a_maintenance_manual.md"}
+{"question": "服务报告应该包含哪些附件？", "expected_keywords": ["equipment image", "inspection notes", "benchmark result", "final generated report"], "source_hint": "after_sales_troubleshooting_faq.md"}

@@ -1,0 +1,3 @@
+{"id":"rag_001","query":"这个项目覆盖哪些 AI 模块？","expected_keywords":["RAG","GUI Agent","LLaVA","YOLO"],"expected_source_contains":["README","PROJECT_COVERAGE"]}
+{"id":"rag_002","query":"项目如何进行产品级 smoke 验收？","expected_keywords":["smoke","acceptance","report"],"expected_source_contains":["PRODUCT_ACCEPTANCE","SMOKE"]}
+{"id":"rag_003","query":"LLaVA 训练工程包含哪些证据文件？","expected_keywords":["metrics","evidence","config"],"expected_source_contains":["LLAVA","EXPERIMENT"]}

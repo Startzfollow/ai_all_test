@@ -1,0 +1,8 @@
+path: .
+train: images/train
+val: images/val
+names:
+  0: gauge
+  1: warning_light
+  2: serial_plate
+  3: corrosion_marker

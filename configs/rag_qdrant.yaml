@@ -1,0 +1,8 @@
+rag:
+  vector_backend: qdrant
+  qdrant_url: http://127.0.0.1:6333
+  qdrant_collection: ai_fullstack_docs
+  embedding_model_path: /mnt/PRO6000_disk/models/BAAI
+  chunk_size: 500
+  chunk_overlap: 80
+  top_k: 5

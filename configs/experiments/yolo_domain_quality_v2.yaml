@@ -1,0 +1,31 @@
+name: yolo_domain_quality_v2
+stage: vision_detection_quality_upgrade
+status: planned_or_ready
+
+objective: >
+  Move YOLO from speed-only smoke benchmark to a quality benchmark that compares
+  thresholds, model size, latency, and domain accuracy metrics.
+
+models:
+  baseline_n: weights/yolov8n.pt
+  baseline_s: weights/yolov8s.pt
+
+benchmark:
+  image: examples/images/demo.png
+  runs: 30
+  conf_values: [0.15, 0.25, 0.35, 0.50]
+  iou_values: [0.45, 0.60, 0.70]
+
+quality_targets:
+  fps_min: 60
+  map50_min_on_domain_dataset: 0.70
+  precision_min: 0.80
+  recall_min: 0.75
+
+command_templates:
+  sweep_n: >-
+    python scripts/sweep_yolo_thresholds.py --model weights/yolov8n.pt
+    --image examples/images/demo.png --runs 30
+  sweep_s: >-
+    python scripts/sweep_yolo_thresholds.py --model weights/yolov8s.pt
+    --image examples/images/demo.png --runs 30

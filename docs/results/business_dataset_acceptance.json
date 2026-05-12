@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "score": 1.0,
+  "release_level": "pilot_candidate",
+  "dataset_root": "data/business_field_service_demo",
+  "generated_at": "2026-05-12T08:54:03Z",
+  "checks": {
+    "manifest": {"passed": true, "name": "field_service_demo_dataset"},
+    "rag_docs": {"passed": true, "count": 2},
+    "yolo_labels": {"passed": true, "image_count": 16, "label_count": 16},
+    "eval_files": {
+      "rag_qa": {"passed": true, "count": 3},
+      "llava_vqa": {"passed": true, "count": 12},
+      "agent_tasks": {"passed": true, "count": 2}
+    },
+    "business_smoke": {"passed": true, "returncode": 0},
+    "quality_eval": {"passed": true, "overall_score": 0.625}
+  }
+}

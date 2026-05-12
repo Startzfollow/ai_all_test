@@ -1,0 +1,12 @@
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0000.png", "question": "图中告警灯是什么颜色？", "answer": "红色", "answer_en": "red"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0000.png", "question": "图中是否存在腐蚀标记？", "answer": "是", "answer_en": "yes"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0001.png", "question": "图中告警灯是什么颜色？", "answer": "绿色", "answer_en": "green"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0001.png", "question": "图中是否存在腐蚀标记？", "answer": "否", "answer_en": "no"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0002.png", "question": "图中告警灯是什么颜色？", "answer": "绿色", "answer_en": "green"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0002.png", "question": "图中是否存在腐蚀标记？", "answer": "否", "answer_en": "no"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0003.png", "question": "图中告警灯是什么颜色？", "answer": "红色", "answer_en": "red"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0003.png", "question": "图中是否存在腐蚀标记？", "answer": "否", "answer_en": "no"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0004.png", "question": "图中告警灯是什么颜色？", "answer": "绿色", "answer_en": "green"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0004.png", "question": "图中是否存在腐蚀标记？", "answer": "是", "answer_en": "yes"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0005.png", "question": "图中告警灯是什么颜色？", "answer": "绿色", "answer_en": "green"}
+{"image": "data/business_field_service_demo/yolo/images/train/field_unit_0005.png", "question": "图中是否存在腐蚀标记？", "answer": "否", "answer_en": "no"}

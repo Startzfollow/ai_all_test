@@ -1,0 +1,82 @@
+# Dataset registry for reproducible multimodal and RAG experiments.
+# Raw datasets stay on local storage. Git should only contain small samples,
+# manifests, evaluation subsets, and reports.
+
+datasets:
+  llava_cot_100k:
+    path: /mnt/PRO6000_disk/data/LLaVA-CoT-100k
+    type: multimodal_instruction
+    tasks:
+      - llava_style_finetuning
+      - visual_reasoning
+      - chain_of_thought_vqa
+    status: local_available
+    split_policy: "prepare 1k smoke, 10k medium, full training subsets"
+
+  llava_r1_100k:
+    path: /mnt/PRO6000_disk/data/LLaVA-R1-100k
+    type: multimodal_reasoning
+    tasks:
+      - reasoning_finetuning
+      - vlm_evaluation
+    status: local_available
+
+  docvqa:
+    path: /mnt/PRO6000_disk/data/DocVQA
+    type: document_vqa
+    tasks:
+      - document_understanding
+      - ocr_vqa
+      - llava_evaluation
+    status: local_available
+
+  infographic_vqa:
+    path: /mnt/PRO6000_disk/data/InfographicVQA
+    type: infographic_vqa
+    tasks:
+      - chart_reasoning
+      - visual_document_understanding
+    status: local_available
+
+  alpaca_gpt4_zh:
+    path: /mnt/PRO6000_disk/data/alpaca-gpt4-data-zh.json
+    type: text_instruction
+    tasks:
+      - chinese_instruction_tuning
+      - prompt_alignment
+    status: local_available
+
+  alpaca_gpt4_zh_30percent:
+    path: /mnt/PRO6000_disk/data/alpaca_gpt4_zh_30percent.json
+    type: text_instruction_subset
+    tasks:
+      - chinese_instruction_smoke_test
+    status: local_available
+
+  deita_10k:
+    path: /mnt/PRO6000_disk/data/deita_10k.json
+    type: text_instruction_subset
+    tasks:
+      - data_quality_experiment
+    status: local_available
+
+  tabular_train_csv:
+    path: /mnt/PRO6000_disk/data/train.csv
+    type: tabular_or_task_specific
+    tasks:
+      - task_specific_experiment
+    status: local_available
+
+release_policy:
+  raw_data_in_git: false
+  publish_allowed:
+    - small redacted examples
+    - dataset cards
+    - manifests
+    - evaluation metrics
+    - quality reports
+  publish_forbidden:
+    - private raw datasets
+    - personally identifiable information
+    - proprietary documents
+    - unredacted customer data

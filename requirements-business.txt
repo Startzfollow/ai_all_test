@@ -1,0 +1,4 @@
+# Optional dependencies for the business platform layer.
+# Base demo can run with SQLite + FastAPI TestClient.
+psycopg[binary]>=3.1.0
+python-multipart>=0.0.9

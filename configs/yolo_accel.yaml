@@ -1,0 +1,14 @@
+yolo:
+  model_path: weights/yolov8n.pt
+  image_size: 640
+  confidence: 0.25
+  device: 0
+  export:
+    onnx_path: weights/yolov8n.onnx
+    engine_path: weights/yolov8n.engine
+    half: true
+    dynamic: false
+    simplify: true
+  benchmark:
+    warmup: 10
+    runs: 100

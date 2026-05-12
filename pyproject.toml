@@ -1,0 +1,21 @@
+[project]
+name = "ai-fullstack-multimodal-agent-suite"
+version = "0.2.0"
+description = "RAG + GUI Agent + LLaVA fine-tuning entrypoint + YOLO acceleration fullstack demo"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["backend/tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

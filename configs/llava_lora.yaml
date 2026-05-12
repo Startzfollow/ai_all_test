@@ -1,0 +1,36 @@
+# LLaVA / VLM LoRA fine-tuning template.
+# 根据你的本地基座模型实际路径调整 model_name_or_path。
+model:
+  model_name_or_path: /mnt/PRO6000_disk/models/Qwen
+  vision_tower: /mnt/PRO6000_disk/models/BAAI
+  trust_remote_code: true
+
+data:
+  train_file: data/processed/llava_cot_train.jsonl
+  image_root: /mnt/PRO6000_disk/data/LLaVA-CoT-100k
+  max_samples: 2000
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+training:
+  output_dir: outputs/llava_lora
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0002
+  num_train_epochs: 1
+  bf16: true
+  gradient_checkpointing: true
+  save_steps: 500
+  logging_steps: 10
+  deepspeed: configs/zero2.json

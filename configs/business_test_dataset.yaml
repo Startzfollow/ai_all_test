@@ -1,0 +1,40 @@
+# Business dataset configuration for the field-service AI operations scenario.
+# This file intentionally points to generated/local assets so the repository can
+# be tested without committing large datasets or model checkpoints.
+
+name: field_service_demo_dataset
+version: v1
+scenario: equipment_inspection_and_after_sales_support
+
+default_root: data/business_field_service_demo
+
+datasets:
+  synthetic_field_service:
+    type: generated
+    generator: scripts/create_field_service_demo_dataset.py
+    root: data/business_field_service_demo
+    purpose:
+      - rag_knowledge_base
+      - visual_question_answering
+      - yolo_dataset_contract
+      - business_task_acceptance
+  coco128_optional:
+    type: public_optional_download
+    downloader: scripts/download_public_eval_assets.py
+    root: data/public/coco128
+    purpose:
+      - yolo_pipeline_debug
+      - object_detection_baseline
+
+quality_targets:
+  dataset_integrity: 1.0
+  rag_eval_ready: 1.0
+  yolo_label_sanity: 1.0
+  llava_vqa_ready: 1.0
+  business_task_ready: 1.0
+  minimum_acceptance_score: 0.85
+
+release_notes:
+  - Synthetic field-service data is for product smoke, acceptance, and demo validation.
+  - Real customer data should be stored outside Git and registered through configs/dataset_registry.yaml.
+  - Public datasets are optional and may have separate license terms.

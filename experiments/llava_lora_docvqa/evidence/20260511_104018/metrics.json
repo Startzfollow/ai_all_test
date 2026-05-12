@@ -1,0 +1,30 @@
+{
+  "experiment": "llava_lora_docvqa",
+  "status": "configured",
+  "date": null,
+  "hardware": {
+    "gpu": "4 x NVIDIA RTX PRO 6000 Blackwell",
+    "cuda": "13.0",
+    "driver": "580.126.09"
+  },
+  "training": {
+    "method": "LoRA/QLoRA",
+    "dataset": "LLaVA-style multimodal instruction data",
+    "epochs": null,
+    "precision": "bf16",
+    "deepspeed": "zero2",
+    "training_samples": null,
+    "global_batch_size": null
+  },
+  "metrics": {
+    "final_train_loss": null,
+    "eval_accuracy": null,
+    "avg_inference_latency_ms": null
+  },
+  "artifacts": {
+    "checkpoint_local_path": null,
+    "log_file": null,
+    "examples_file": "experiments/llava_lora_docvqa/results/examples.jsonl"
+  },
+  "notes": "Fill this file with measured values after real training and evaluation. Do not fabricate metrics."
+}

@@ -1,0 +1,3 @@
+{"id":"vqa_001","image":"examples/images/demo.png","question":"图中主要交通工具是什么？","answer":"公交车"}
+{"id":"vqa_002","image":"examples/images/demo.png","question":"图像中是否包含道路场景？","answer":"是"}
+{"id":"vqa_003","image":"examples/images/demo.png","question":"这张图片适合用于哪类视觉任务？","answer":"目标检测"}

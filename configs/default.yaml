@@ -1,0 +1,43 @@
+app:
+  name: AI Fullstack Multimodal Agent Suite
+  host: 0.0.0.0
+  port: 8000
+
+paths:
+  models_root: /mnt/PRO6000_disk/models
+  data_root: /mnt/PRO6000_disk/data
+  llava_cot_100k: /mnt/PRO6000_disk/data/LLaVA-CoT-100k
+  llava_r1_100k: /mnt/PRO6000_disk/data/LLaVA-R1-100k
+  docvqa: /mnt/PRO6000_disk/data/DocVQA
+  infographic_vqa: /mnt/PRO6000_disk/data/InfographicVQA
+
+rag:
+  vector_backend: local      # local or qdrant
+  local_store_path: vector_db/local_rag_store.json
+  qdrant_url: http://127.0.0.1:6333
+  qdrant_collection: ai_fullstack_docs
+  embedding_model_path: /mnt/PRO6000_disk/models/BAAI
+  chunk_size: 500
+  chunk_overlap: 80
+  top_k: 4
+
+llm:
+  openai_base_url: http://127.0.0.1:8001/v1
+  api_key: EMPTY
+  model: qwen-local
+  temperature: 0.2
+
+vlm:
+  openai_base_url: http://127.0.0.1:8001/v1
+  api_key: EMPTY
+  model: llava-local
+
+vision:
+  yolo_model_path: weights/yolov8n.pt
+  device: 0
+  image_size: 640
+  confidence: 0.25
+
+gui_agent:
+  dry_run: true
+  max_steps: 6

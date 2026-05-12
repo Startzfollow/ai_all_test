@@ -1,0 +1,10 @@
+3fd3891cb31cfe5e6dd24a3c22f8a7b36b6b5180
+
+ M docs/LLAVA_TRAINING_REPORT.md
+?? Makefile.orig
+?? Makefile.rej
+?? README.md.orig
+?? README.md.rej
+?? b/
+?? experiments/llava_lora_docvqa/evidence/20260511_104018/
+?? pyproject.toml.orig

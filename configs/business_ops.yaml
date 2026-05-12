@@ -1,0 +1,45 @@
+business:
+  name: field_service_multimodal_ops
+  display_name: 设备巡检与售后知识助手
+  target_user: 现场工程师 / 售后工程师 / 设备运维人员
+  user_need: |
+    上传设备图片和维修手册，自动完成知识库问答、图片理解、目标检测、训练实验管理和报告生成。
+  release_stage: commercial_poc_candidate
+
+database:
+  local_demo_url: sqlite:///outputs/business_ops.db
+  production_url_env: BUSINESS_DB_URL
+  recommended_production_url: postgresql://postgres:postgres@localhost:5432/ai_ops
+  tables:
+    - projects
+    - assets
+    - tasks
+    - model_assets
+    - dataset_assets
+    - evaluations
+    - events
+
+object_storage:
+  local_root_env: BUSINESS_OBJECT_STORE_ROOT
+  local_root_default: outputs/object_store
+  buckets:
+    - business-assets
+    - reports
+    - model-artifacts
+    - evaluation-results
+  production_adapter: S3/MinIO compatible storage
+
+async_tasks:
+  task_types:
+    rag_build: build field-service manual knowledge base
+    yolo_benchmark: benchmark detection on field images
+    llava_train: plan or run multimodal LoRA training
+    report_generate: generate business summary report
+  worker: scripts/run_business_worker.py
+
+monitoring:
+  minimal:
+    - API health endpoint
+    - GPU snapshot through nvidia-smi
+    - task status in database
+    - task failure persisted as events

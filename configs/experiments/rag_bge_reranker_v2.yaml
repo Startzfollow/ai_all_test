@@ -1,0 +1,31 @@
+name: rag_bge_reranker_v2
+stage: retrieval_quality_upgrade
+status: planned_or_ready
+
+objective: >
+  Upgrade RAG from smoke-test retrieval to a quality-oriented retrieval pipeline
+  using stronger local embeddings, optional reranking, and citation-based evaluation.
+
+models:
+  embedding_model_key: baai_family
+  reranker_model_key: baai_family
+  registry: configs/model_registry.yaml
+
+retrieval:
+  chunk_size: 700
+  chunk_overlap: 120
+  dense_top_k: 20
+  rerank_top_n: 5
+  hybrid_search: planned
+  citation_required: true
+
+quality_targets:
+  recall_at_3_min: 0.80
+  citation_coverage_min: 0.90
+  hallucination_rate_max: 0.10
+
+command_templates:
+  run_quality_eval: >-
+    python scripts/evaluate_quality.py --repo-root . --top-k 4
+  run_rag_eval: >-
+    python scripts/eval_rag.py --documents-dir examples/docs --top-k 4

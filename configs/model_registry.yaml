@@ -1,0 +1,74 @@
+# Model registry for the local multimodal AI platform.
+# Large model files are intentionally not committed to Git.
+# This registry records local paths, intended usage, and integration status.
+
+models:
+  qwen_family:
+    path: /mnt/PRO6000_disk/models/Qwen
+    type: llm_or_vlm_base
+    usage:
+      - llava_style_finetuning
+      - multimodal_reasoning
+      - text_generation
+    status: local_available
+    notes: "Use as a base model path or adapter target when compatible with the selected training script."
+
+  baai_family:
+    path: /mnt/PRO6000_disk/models/BAAI
+    type: embedding_or_reranker
+    usage:
+      - rag_embedding
+      - rag_reranking
+      - retrieval_evaluation
+    status: local_available
+    notes: "Recommended for upgrading RAG from mock embedding to stronger Chinese/multilingual retrieval."
+
+  chinese_tiny_bert:
+    path: /mnt/PRO6000_disk/models/chinese_tiny_bert
+    type: lightweight_embedding_baseline
+    usage:
+      - rag_smoke_test
+      - lightweight_baseline
+    status: local_available
+    notes: "Good for fast smoke tests; not recommended as final production retrieval model."
+
+  english_tiny_bert:
+    path: /mnt/PRO6000_disk/models/english_tiny_bert
+    type: lightweight_embedding_baseline
+    usage:
+      - english_retrieval_baseline
+      - ci_smoke_test
+    status: local_available
+    notes: "Useful as a lightweight test model for English-only retrieval experiments."
+
+  multilingual_bert_model:
+    path: /mnt/PRO6000_disk/models/multilingual_bert_model
+    type: multilingual_embedding_baseline
+    usage:
+      - multilingual_rag_baseline
+    status: local_available
+    notes: "Use for baseline multilingual retrieval before switching to stronger BGE-M3 style models."
+
+  smolvla_base:
+    path: /mnt/PRO6000_disk/models/smolvla_base
+    type: lightweight_vla_or_vlm
+    usage:
+      - gui_agent_experiment
+      - vision_language_action_baseline
+    status: local_available
+    notes: "Potential lightweight model for GUI/VLA experiments if its runtime dependencies are available."
+
+policy:
+  commit_large_weights: false
+  allowed_to_commit:
+    - config files
+    - metrics
+    - logs after redaction
+    - small sample manifests
+  excluded_from_git:
+    - "*.pt"
+    - "*.bin"
+    - "*.safetensors"
+    - "*.onnx"
+    - "*.engine"
+    - "checkpoint-*"

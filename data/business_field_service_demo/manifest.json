@@ -1,0 +1,60 @@
+{
+  "name": "field_service_demo_dataset",
+  "version": "v1",
+  "scenario": "equipment_inspection_and_after_sales_support",
+  "root": "data/business_field_service_demo",
+  "seed": 42,
+  "num_images": 16,
+  "class_names": [
+    "gauge",
+    "warning_light",
+    "serial_plate",
+    "corrosion_marker"
+  ],
+  "documents": [
+    {
+      "path": "data/business_field_service_demo/rag_docs/field_unit_a_maintenance_manual.md",
+      "type": "manual",
+      "topic": "maintenance"
+    },
+    {
+      "path": "data/business_field_service_demo/rag_docs/after_sales_troubleshooting_faq.md",
+      "type": "faq",
+      "topic": "troubleshooting"
+    }
+  ],
+  "yolo": {
+    "data_yaml": "data/business_field_service_demo/yolo/data.yaml",
+    "train_images": 11,
+    "val_images": 5,
+    "label_format": "YOLO normalized xywh"
+  },
+  "eval_files": {
+    "rag_qa": "data/business_field_service_demo/eval/rag_qa.jsonl",
+    "llava_vqa": "data/business_field_service_demo/eval/llava_vqa.jsonl",
+    "agent_tasks": "data/business_field_service_demo/eval/agent_tasks.jsonl"
+  },
+  "sample_images": [
+    {
+      "image": "data/business_field_service_demo/yolo/images/train/field_unit_0000.png",
+      "label": "data/business_field_service_demo/yolo/labels/train/field_unit_0000.txt",
+      "warning_light": "red",
+      "has_corrosion": true,
+      "object_count": 5
+    },
+    {
+      "image": "data/business_field_service_demo/yolo/images/train/field_unit_0001.png",
+      "label": "data/business_field_service_demo/yolo/labels/train/field_unit_0001.txt",
+      "warning_light": "green",
+      "has_corrosion": false,
+      "object_count": 4
+    },
+    {
+      "image": "data/business_field_service_demo/yolo/images/train/field_unit_0002.png",
+      "label": "data/business_field_service_demo/yolo/labels/train/field_unit_0002.txt",
+      "warning_light": "green",
+      "has_corrosion": false,
+      "object_count": 4
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+name: ai-fullstack-mm
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - pillow
+  - pyyaml
+  - fastapi
+  - uvicorn
+  - python-multipart
+  - requests
+  - pip:
+      - pydantic-settings>=2.0.0
+      - qdrant-client>=1.9.0
+      - sentence-transformers>=2.7.0
+      - transformers>=4.40.0
+      - accelerate>=0.30.0
+      - peft>=0.11.0
+      - bitsandbytes>=0.43.0
+      - opencv-python>=4.9.0
+      - ultralytics>=8.2.0
+      - onnx>=1.16.0
+      - onnxruntime-gpu>=1.18.0
+      - openai>=1.30.0
+      - pyautogui>=0.9.54
+      - pytest>=8.0.0

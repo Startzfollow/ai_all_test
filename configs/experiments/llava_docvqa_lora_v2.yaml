@@ -1,0 +1,72 @@
+name: llava_docvqa_lora_v2
+stage: large_scale_multimodal_training
+owner: local
+status: planned_or_ready
+
+objective: >
+  Fine-tune a LLaVA-style vision-language model with LoRA/QLoRA on document
+  and reasoning VQA data, then evaluate document understanding and visual reasoning.
+
+hardware:
+  expected_gpus: 4
+  expected_gpu_memory_gb_each: 98
+  precision: bf16
+  distributed: deepspeed_zero2
+
+model:
+  base_model_key: qwen_family
+  registry: configs/model_registry.yaml
+  local_path: /mnt/PRO6000_disk/models/Qwen
+  adapter_type: lora
+  lora_r: 64
+  lora_alpha: 128
+  lora_dropout: 0.05
+
+data:
+  primary_dataset_key: llava_cot_100k
+  eval_dataset_keys:
+    - docvqa
+    - infographic_vqa
+  registry: configs/dataset_registry.yaml
+  smoke_subset: data/processed/llava_cot_1k.jsonl
+  medium_subset: data/processed/llava_cot_30k.jsonl
+  image_folder: /mnt/PRO6000_disk/data
+
+training:
+  entrypoint: experiments/llava_lora_docvqa/train.sh
+  output_dir: outputs/llava_docvqa_lora_v2
+  epochs: 1
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8
+  learning_rate: 0.00002
+  save_steps: 500
+  logging_steps: 10
+
+quality_targets:
+  smoke_train_loss_decreases: true
+  vqa_sample_accuracy_min: 0.60
+  hallucination_rate_max: 0.20
+  evidence_required:
+    - config
+    - logs
+    - metrics
+    - examples
+    - hardware
+    - git_commit
+
+command_templates:
+  prepare_1k: >-
+    python scripts/prepare_llava_training_subset.py
+    --input /mnt/PRO6000_disk/data/LLaVA-CoT-100k
+    --output data/processed/llava_cot_1k.jsonl
+    --limit 1000 --shuffle --seed 42
+  validate_1k: >-
+    python scripts/validate_llava_dataset.py
+    --input data/processed/llava_cot_1k.jsonl --max-errors 20
+  train_smoke: >-
+    DATA_PATH=data/processed/llava_cot_1k.jsonl
+    MODEL_PATH=/mnt/PRO6000_disk/models/Qwen
+    IMAGE_FOLDER=/mnt/PRO6000_disk/data
+    OUTPUT_DIR=outputs/llava_docvqa_lora_v2/smoke_1k
+    CUDA_VISIBLE_DEVICES=0,1,2,3
+    bash experiments/llava_lora_docvqa/train.sh

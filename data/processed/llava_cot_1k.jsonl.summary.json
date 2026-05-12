@@ -1,0 +1,9 @@
+{
+  "input": "/mnt/PRO6000_disk/data/LLaVA-CoT-100k",
+  "output": "data/processed/llava_cot_1k.jsonl",
+  "total_valid_records": 98582,
+  "written_records": 1000,
+  "limit": 1000,
+  "shuffle": true,
+  "seed": 42
+}

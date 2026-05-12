@@ -1,0 +1,80 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Data, benchmark and model artifacts
+data/raw/
+data/processed/*.jsonl
+vector_db/*
+!vector_db/.gitkeep
+!vector_db/README.md
+outputs/*
+!outputs/.gitkeep
+runs/
+weights/*
+!weights/.gitkeep
+!weights/README.md
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.engine
+*.plan
+*.trt
+*.bin
+
+# Archives / generated folders
+*.zip
+output/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Repository packages / local generated files
+*.zip
+output/
+output*/
+logs/
+*.log
+
+# Keep documentation placeholders in ignored artifact directories
+!weights/README.md
+!vector_db/.gitkeep
+
+# --- training artifacts ---
+outputs/
+checkpoints/
+wandb/
+runs/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.engine
+*.trt
+*.plan
+*.log
+!experiments/**/logs/.gitkeep
+!experiments/**/results/*.json
+!experiments/**/results/*.jsonl
+!experiments/**/evidence/.gitkeep
+!experiments/**/evidence/**/*.txt
+!experiments/**/evidence/**/*.json
+!experiments/**/evidence/**/*.yaml
+# --- end training artifacts ---
