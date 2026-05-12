@@ -1,0 +1,48 @@
+# Production Pilot V4 configuration
+# This file keeps the production-pilot upgrade explicit and auditable.
+
+business:
+  scenario: field_service_ai_ops
+  release_target: production_pilot_candidate
+  default_workspace: field_service_default
+
+storage:
+  backend: local
+  local_root: outputs/object_store_v4
+  bucket: field-service-ai
+  # MinIO / S3 can be enabled by environment variables:
+  # BUSINESS_OBJECT_STORE_BACKEND=minio
+  # BUSINESS_OBJECT_STORE_ENDPOINT=http://localhost:9000
+  # BUSINESS_OBJECT_STORE_ACCESS_KEY=minioadmin
+  # BUSINESS_OBJECT_STORE_SECRET_KEY=minioadmin
+
+database:
+  url_env: BUSINESS_DB_URL
+  sqlite_fallback: outputs/business_v4.sqlite3
+  required_tables:
+    - projects
+    - assets
+    - tasks
+    - evaluations
+    - events
+
+worker:
+  max_retries: 2
+  heartbeat_seconds: 5
+  default_timeout_seconds: 900
+  log_root: outputs/task_logs_v4
+  result_root: outputs/task_results_v4
+
+gates:
+  smoke_min_score: 1.0
+  quality_min_score: 0.65
+  pilot_min_score: 0.75
+  production_candidate_min_score: 0.85
+
+monitoring:
+  enable_gpu_snapshot: true
+  gpu_command: nvidia-smi --query-gpu=index,name,memory.used,memory.total,utilization.gpu,temperature.gpu --format=csv,noheader,nounits
+
+reporting:
+  output_dir: outputs/reports_v4
+  customer_report_name: field_service_customer_report.md
