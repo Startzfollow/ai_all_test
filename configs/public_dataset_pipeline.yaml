@@ -1,0 +1,96 @@
+# Public dataset and training/test pipeline configuration
+# This config adds a second evaluation layer on top of the built-in business demo data.
+# It is designed to work in three modes:
+#   1) CI-safe dry run with local synthetic/business data
+#   2) Local public dataset evaluation with DocVQA / InfographicVQA / MVTec AD roots
+#   3) Optional internet download for lightweight datasets such as COCO128
+
+paths:
+  public_root: data/public_eval
+  business_dataset_root: data/business_field_service_demo
+  outputs_root: outputs/public_dataset_pipeline
+  local_models_root: /mnt/PRO6000_disk/models
+  local_data_root: /mnt/PRO6000_disk/data
+
+external_datasets:
+  coco128:
+    enabled: true
+    type: yolo_detection
+    download_url: https://github.com/ultralytics/assets/releases/download/v0.0.0/coco128.zip
+    target_dir: data/public_eval/coco128
+    purpose:
+      - YOLO train/val pipeline smoke test
+      - data.yaml format validation
+      - threshold sweep and benchmark pipeline validation
+    production_note: COCO128 is for pipeline debugging, not field-service domain accuracy.
+
+  docvqa:
+    enabled: true
+    type: document_vqa
+    local_root: /mnt/PRO6000_disk/data/DocVQA
+    target_dir: data/public_eval/docvqa_sample
+    max_samples: 128
+    purpose:
+      - document image question answering
+      - maintenance form and scanned manual understanding
+      - LLaVA-style VQA evaluation sample generation
+
+  infographicvqa:
+    enabled: true
+    type: infographic_vqa
+    local_root: /mnt/PRO6000_disk/data/InfographicVQA
+    target_dir: data/public_eval/infographicvqa_sample
+    max_samples: 128
+    purpose:
+      - chart and infographic understanding
+      - alarm trend and dashboard screenshot reasoning
+      - multimodal VQA evaluation sample generation
+
+  mvtec_ad:
+    enabled: true
+    type: industrial_anomaly
+    local_root: null
+    target_dir: data/public_eval/mvtec_ad_sample
+    max_samples_per_category: 32
+    purpose:
+      - industrial anomaly detection scenario validation
+      - defect/corrosion/scratch visual evidence tests
+    production_note: MVTec AD is anomaly detection oriented. Convert masks/defects to bboxes only if YOLO detection training is required.
+
+  llava_cot:
+    enabled: true
+    type: multimodal_instruction
+    local_root: /mnt/PRO6000_disk/data/LLaVA-CoT-100k
+    target_dir: data/public_eval/llava_cot_sample
+    max_samples: 1000
+    purpose:
+      - LLaVA-style training data subset
+      - LoRA/QLoRA smoke training
+      - evidence collection and training-report generation
+
+training_tests:
+  yolo:
+    default_model: weights/yolov8n.pt
+    fallback_model: weights/yolov8s.pt
+    image_size: 320
+    epochs: 1
+    batch: 8
+    runs: 10
+    conf_values: [0.25, 0.5]
+    iou_values: [0.45, 0.7]
+
+  rag:
+    top_k: 4
+    expected_min_recall_at_k: 0.60
+
+  vqa:
+    sample_limit: 128
+    metrics:
+      - exact_match
+      - keyword_match
+      - coverage_only
+
+  release_gate:
+    smoke_min_score: 0.70
+    public_suite_min_score: 0.65
+    pilot_candidate_min_score: 0.80

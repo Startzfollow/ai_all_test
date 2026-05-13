@@ -1,0 +1,47 @@
+name: Public Dataset Pipeline
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  public-dataset-dry-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install minimal deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml numpy pytest
+
+      - name: Prepare local-only inventory
+        run: |
+          python scripts/download_and_prepare_public_datasets.py \
+            --datasets docvqa infographicvqa llava_cot \
+            --output data/public_eval_ci \
+            --docvqa-root data/business_field_service_demo \
+            --infographicvqa-root data/business_field_service_demo \
+            --llava-root data/business_field_service_demo \
+            --max-samples 8
+
+      - name: Dry-run train/test suite
+        run: |
+          PYTHONPATH=. python scripts/run_public_dataset_train_test.py \
+            --repo-root . \
+            --public-root data/public_eval_ci \
+            --suite rag llava yolo_business mvtec
+
+      - name: Score public dataset suite
+        run: |
+          python scripts/evaluate_public_dataset_suite.py \
+            --repo-root . \
+            --public-root data/public_eval_ci \
+            --min-score 0.50
