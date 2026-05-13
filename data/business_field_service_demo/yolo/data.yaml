@@ -1,4 +1,4 @@
-path: .
+path: /mnt/PRO6000_disk/swd/ai_pro/ai-fullstack-multimodal-agent-suite/data/business_field_service_demo/yolo
 train: images/train
 val: images/val
 names:

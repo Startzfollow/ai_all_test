@@ -1,0 +1,56 @@
+# Large Dataset Train/Test V5 configuration
+# This config upgrades the project from tiny smoke data to scalable dev/pilot datasets.
+
+field_service_yolo:
+  output: data/field_service_yolo_large
+  classes:
+    - gauge
+    - warning_light
+    - serial_plate
+    - corrosion_marker
+  tiers:
+    smoke:
+      num_images: 64
+      epochs: 1
+      imgsz: 320
+      batch: 8
+      min_instances_per_class: 20
+      target_map50: null
+    dev:
+      num_images: 500
+      epochs: 30
+      imgsz: 640
+      batch: 16
+      min_instances_per_class: 150
+      target_map50: 0.50
+    pilot:
+      num_images: 1500
+      epochs: 80
+      imgsz: 640
+      batch: 16
+      min_instances_per_class: 500
+      target_map50: 0.70
+  split:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+  augmentation_in_generator:
+    random_background: true
+    random_object_count: true
+    brightness_variation: true
+    noise: true
+    occlusion: true
+    negative_images: true
+
+multimodal_public:
+  output: data/public_eval_large
+  docvqa_root: /mnt/PRO6000_disk/data/DocVQA
+  infographicvqa_root: /mnt/PRO6000_disk/data/InfographicVQA
+  llava_cot_root: /mnt/PRO6000_disk/data/LLaVA-CoT-100k
+  limits:
+    smoke: 128
+    dev: 5000
+    pilot: 30000
+
+reports:
+  output_dir: outputs/large_dataset_train_test
